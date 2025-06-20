@@ -129,6 +129,15 @@ async function playGame() {
     
     currentUser.points += pointChange;
 
+    // Bonus Round! 10% chance for 3000p
+    if (Math.random() < 0.1) {
+        const bonusPoints = 3000;
+        currentUser.points += bonusPoints;
+        setTimeout(() => {
+            alert('🎉 보너스 당첨! 3,000p를 추가로 획득했습니다!');
+        }, 300); // Show alert after effects
+    }
+
     const logEntry = {
         name: currentUser.name,
         bet: betAmount,
@@ -151,7 +160,7 @@ async function playGame() {
 }
 
 async function handleBeg() {
-    if (currentUser.points === 0 && !currentUser.hasBegged) {
+    if (currentUser.points < 5000 && !currentUser.hasBegged) {
         const pityPoints = Math.ceil(Math.random() * 1000);
         currentUser.points += pityPoints;
         currentUser.hasBegged = true;
@@ -204,7 +213,7 @@ function updateUI() {
     userPointsDisplay.textContent = Math.floor(currentUser.points).toLocaleString();
     betAmountInput.max = currentUser.points;
     validateBet();
-    begButton.classList.toggle('hidden', !(currentUser.points === 0 && !currentUser.hasBegged));
+    begButton.classList.toggle('hidden', !(currentUser.points < 5000 && !currentUser.hasBegged));
 }
 
 function displayResult(reward, pointChange) {
