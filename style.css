@@ -1,0 +1,256 @@
+:root {
+    --primary-color: #0052FF;
+    --secondary-color: #0A1931;
+    --accent-color: #FFC700;
+    --text-color: #EFEFEF;
+    --bg-color: #030C1A;
+    --success-color: #39FF14;
+    --fail-color: #FF3131;
+}
+
+body {
+    font-family: "Pretendard", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: var(--secondary-color);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 82, 255, 0.3);
+    border: 1px solid var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.modal-content p {
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="number"], input[type="password"] {
+    width: 80%;
+    padding: 12px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 16px;
+    margin: 0 auto;
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    background-color: #0045D1;
+}
+
+button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#game-container {
+    width: 100%;
+    max-width: 800px;
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    color: var(--primary-color);
+    text-shadow: 0 0 15px var(--primary-color);
+    margin-bottom: 10px;
+}
+
+#user-info {
+    background-color: var(--secondary-color);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+}
+
+#user-points {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+#game-area {
+    background-color: var(--secondary-color);
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.betting-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+#risk-options {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.risk-option {
+    background-color: #333;
+    border: 2px solid #555;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 20px;
+}
+
+.risk-option.selected {
+    border-color: var(--accent-color);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--accent-color);
+}
+
+.risk-option strong {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+#result-display {
+    margin-top: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+    min-height: 50px;
+}
+
+@keyframes win-effect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); color: var(--success-color); }
+    100% { transform: scale(1); }
+}
+
+@keyframes lose-effect {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); color: var(--fail-color); }
+    100% { transform: scale(1); }
+}
+
+.win {
+    animation: win-effect 0.5s ease-in-out;
+}
+
+.lose {
+    animation: lose-effect 0.5s ease-in-out;
+}
+
+#beg-button {
+    margin-top: 15px;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+}
+
+footer {
+    margin-top: 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid var(--primary-color);
+}
+
+th {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+td {
+    font-size: 1.1em;
+}
+
+tr:nth-child(even) {
+    background-color: #0A1931;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.rank-1, .rank-2, .rank-3 {
+    position: relative;
+    font-weight: bold;
+}
+
+.rank-1::before, .rank-2::before, .rank-3::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.5;
+}
+
+.rank-1::before {
+    background-image: url('https://emojigraph.org/media/apple/1st-place-medal_1f947.png'); /* 금메달 */
+}
+
+.rank-2::before {
+    background-image: url('https://emojigraph.org/media/apple/2nd-place-medal_1f948.png'); /* 은메달 */
+}
+
+.rank-3::before {
+    background-image: url('https://emojigraph.org/media/apple/3rd-place-medal_1f949.png'); /* 동메달 */
+} 
