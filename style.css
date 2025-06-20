@@ -8,6 +8,12 @@
     --fail-color: #FF3131;
 }
 
+.main-logo {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 250px;
+}
+
 body {
     font-family: "Pretendard", sans-serif;
     background-color: var(--bg-color);
@@ -95,6 +101,10 @@ button:disabled {
 
 header {
     margin-bottom: 30px;
+}
+
+header .main-logo {
+    max-width: 400px;
 }
 
 header h1 {
