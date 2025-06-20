@@ -124,33 +124,36 @@ async function playGame() {
     }
 
     const rewardMultiplier = Math.random() * (max - min) + min;
-    const reward = Math.ceil(betAmount * rewardMultiplier);
-    const pointChange = reward - betAmount;
+    const initialReward = Math.ceil(betAmount * rewardMultiplier);
+    let pointChange = initialReward - betAmount;
+    let finalReward = initialReward;
+
+    // Bonus Round: Double the profit with a 10% chance if player wins
+    if (pointChange > 0 && Math.random() < 0.1) {
+        const bonusProfit = pointChange; // The profit amount is the bonus
+        pointChange += bonusProfit; // The total change now includes the doubled profit
+        finalReward += bonusProfit; // Add bonus to the final reward for display and logging
+        
+        setTimeout(() => {
+            alert("포인트 이득 더블 효과 발동! (확률: 10%)");
+        }, 300); // Show alert after main effects
+    }
     
     currentUser.points += pointChange;
-
-    // Bonus Round! 10% chance for 3000p
-    if (Math.random() < 0.1) {
-        const bonusPoints = 3000;
-        currentUser.points += bonusPoints;
-        setTimeout(() => {
-            alert('🎉 보너스 당첨! 3,000p를 추가로 획득했습니다!');
-        }, 300); // Show alert after effects
-    }
 
     const logEntry = {
         name: currentUser.name,
         bet: betAmount,
         risk: selectedRisk,
-        reward: reward,
+        reward: finalReward, // Log the potentially buffed reward
         finalPoints: currentUser.points,
     };
 
     const response = await postData('logGameAndUpdate', { user: currentUser, log: logEntry });
 
     if (response.success) {
-        triggerEffects(rewardMultiplier);
-        displayResult(reward, pointChange);
+        triggerEffects(rewardMultiplier); // Note: visual effect is based on initial multiplier
+        displayResult(finalReward, pointChange);
         updateUI();
         updateRanking();
     } else {
